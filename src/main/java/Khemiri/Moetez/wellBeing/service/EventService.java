@@ -5,6 +5,7 @@ import Khemiri.Moetez.wellBeing.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,6 +32,21 @@ public class EventService {
     // get events by name
     public List<Event> getEventsByName(String eventName){
         return eventRepository.findByNameEquals(eventName);
+    }
+
+    // filter by date equal
+    public List<Event> getEventsByDatesEqual(Date date){
+        return eventRepository.findByDateEquals(date);
+    }
+
+    // filter by date greater
+    public List<Event> getEventsByDatesGreater(Date date){
+        return eventRepository.findByDateIsGreaterThanEqual(date);
+    }
+
+    // filter by date less
+    public List<Event> getEventsByDatesLess(Date date){
+        return eventRepository.findByDateIsLessThanEqual(date);
     }
 
 

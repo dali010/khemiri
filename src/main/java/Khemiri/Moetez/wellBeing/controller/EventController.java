@@ -5,10 +5,17 @@ import Khemiri.Moetez.wellBeing.model.Event;
 import Khemiri.Moetez.wellBeing.repository.EventRepository;
 import Khemiri.Moetez.wellBeing.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 @RestController
 public class EventController {
@@ -62,10 +69,43 @@ public class EventController {
         return eventService.getEventsByName(eventName);
     }
 
+    // post rating
+    @RequestMapping(value = "/rateEvent", method = RequestMethod.PUT)
+    public ResponseEntity<String> postRating(@RequestParam(name = "rate") final float rate, @RequestParam(name = "eventId") final Long eventId) {
+        return eventRepository.findById(eventId)
+                .map(event -> {
+                    event.setRating(rate);
+                    eventRepository.save(event);
+                    return new ResponseEntity<>("the event is rated successfyll", HttpStatus.OK);
+                })
+                .orElseGet(() -> {
+                    return new ResponseEntity<>("an error occured!", HttpStatus.BAD_REQUEST);
+                });
+    }
 
+    //get events by date equal
+    @RequestMapping(value = "/eventsByDateEqual", method = RequestMethod.GET)
+    public List<Event> retrieveEventsByDateEqual(@RequestParam(name = "date") final String date) throws ParseException {
+        SimpleDateFormat targetFormatter = new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss", Locale.ENGLISH);
+        targetFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return eventService.getEventsByDatesEqual(targetFormatter.parse(date));
+    }
 
+    //get events by date greater
+    @RequestMapping(value = "/eventsByDateGreater", method = RequestMethod.GET)
+    public List<Event> retrieveEventsByDateGreater(@RequestParam(name = "date") final String date) throws ParseException {
+        SimpleDateFormat targetFormatter = new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss", Locale.ENGLISH);
+        targetFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return eventService.getEventsByDatesGreater(targetFormatter.parse(date));
+    }
 
-
+    //get events by date less
+    @RequestMapping(value = "/eventsByDateLess", method = RequestMethod.GET)
+    public List<Event> retrieveEventsByDateLess(@RequestParam(name = "date") final String date) throws ParseException {
+        SimpleDateFormat targetFormatter = new SimpleDateFormat("yyyy-M-dd'T'hh:mm:ss", Locale.ENGLISH);
+        targetFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return eventService.getEventsByDatesLess(targetFormatter.parse(date));
+    }
 
 
 }

@@ -23,5 +23,6 @@ public class Event {
     private String type;
     private String comment;
     private String mail;
+    private float rating = 0;
     private Date date;
 }
