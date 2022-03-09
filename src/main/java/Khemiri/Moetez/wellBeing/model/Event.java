@@ -1,5 +1,6 @@
 package Khemiri.Moetez.wellBeing.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,8 +23,12 @@ public class Event {
     private String name;
     private String description;
     private String type;
-    private String comment;
     private String mail;
     private float rating = 0;
     private Date date;
+
+    @JsonIgnore
+    @OneToMany( mappedBy="event")
+    private List<Comment> comments;
+
 }

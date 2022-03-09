@@ -26,7 +26,7 @@ public class EventController {
     @Autowired
     private EventRepository eventRepository;
 
-    // create
+    // create event
     @RequestMapping(value = "/addEvent", method = RequestMethod.POST)
     public Event saveEvent(@RequestBody Event event) {
         return eventService.addEvent(event);
@@ -40,7 +40,6 @@ public class EventController {
                 .map(event -> {
                     event.setName(newEvent.getName());
                     event.setDescription(newEvent.getDescription());
-                    event.setComment(newEvent.getComment());
                     event.setType(newEvent.getType());
                     event.setMail(newEvent.getMail());
                     event.setDate(newEvent.getDate());
