@@ -16,11 +16,12 @@ import javax.persistence.*;
 public class Comment {
     @Id
     @Column(name = "comment_id", nullable = false)
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
     private String content;
-    private Long idUser;
-
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     @ManyToOne
     @JoinColumn(name = "event_id")
     private Event event;

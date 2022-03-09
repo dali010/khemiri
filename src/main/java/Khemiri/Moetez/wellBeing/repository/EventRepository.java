@@ -9,6 +9,8 @@ import java.util.List;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
+
+    //issss
     List<Event> findByNameEquals(String name);
 
     List<Event> findByDateIsLessThanEqual(Date date);

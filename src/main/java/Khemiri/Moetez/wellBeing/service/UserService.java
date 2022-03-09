@@ -1,6 +1,5 @@
 package Khemiri.Moetez.wellBeing.service;
 
-import Khemiri.Moetez.wellBeing.controller.UserController;
 import Khemiri.Moetez.wellBeing.model.User;
 import Khemiri.Moetez.wellBeing.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,8 @@ public class UserService {
     private UserRepository userRepository;
 
     // add user
-    public User addUser(User user){
-       return userRepository.save(user);
+    public User addUser(User user) {
+        return userRepository.save(user);
     }
 
 }

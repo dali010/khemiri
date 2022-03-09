@@ -1,6 +1,5 @@
 package Khemiri.Moetez.wellBeing.controller;
 
-import Khemiri.Moetez.wellBeing.model.Event;
 import Khemiri.Moetez.wellBeing.model.User;
 import Khemiri.Moetez.wellBeing.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
