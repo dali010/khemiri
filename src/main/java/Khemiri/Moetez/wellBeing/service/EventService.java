@@ -3,6 +3,7 @@ package Khemiri.Moetez.wellBeing.service;
 import Khemiri.Moetez.wellBeing.model.Event;
 import Khemiri.Moetez.wellBeing.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -34,6 +35,16 @@ public class EventService {
         return eventRepository.findByNameEquals(eventName);
     }
 
+    // get Events sorted ascendant
+    public List<Event> getAscendantSortedEvents(String field){
+        return eventRepository.findAll(Sort.by(Sort.Direction.ASC, field));
+    }
+
+    // get Events sorted descendant
+    public List<Event> getDescendantSortedEvents(String field){
+        return eventRepository.findAll(Sort.by(Sort.Direction.DESC, field));
+    }
+
     // filter by date equal
     public List<Event> getEventsByDatesEqual(Date date){
         return eventRepository.findByDateEquals(date);
@@ -48,6 +59,8 @@ public class EventService {
     public List<Event> getEventsByDatesLess(Date date){
         return eventRepository.findByDateIsLessThanEqual(date);
     }
+
+
 
 
 

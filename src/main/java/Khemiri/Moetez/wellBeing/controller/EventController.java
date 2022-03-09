@@ -68,6 +68,19 @@ public class EventController {
         return eventService.getEventsByName(eventName);
     }
 
+    // get sorted ascendant events
+    @RequestMapping(value = "/sortedEventsAsc", method = RequestMethod.GET)
+    public List<Event> retrieveSortedEvent(@RequestParam(name = "field") final String field) {
+        return eventService.getAscendantSortedEvents(field);
+    }
+
+    // get sorted descendants events
+    @RequestMapping(value = "/sortedEventsDesc", method = RequestMethod.GET)
+    public List<Event> retrieveDesSortedEvent(@RequestParam(name = "field") final String field) {
+        return eventService.getDescendantSortedEvents(field);
+    }
+
+
     // post rating
     @RequestMapping(value = "/rateEvent", method = RequestMethod.PUT)
     public ResponseEntity<String> postRating(@RequestParam(name = "rate") final float rate, @RequestParam(name = "eventId") final Long eventId) {
